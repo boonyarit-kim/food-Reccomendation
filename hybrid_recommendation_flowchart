@@ -1,0 +1,42 @@
+// Hybrid Food Recommendation System
+digraph {
+	A [label=Start shape=oval]
+	B [label="Connect to SQL Server
+Load tables: User_2, menus_2, Ratings
+Load CSV: df_final2.csv, disease_prep.csv" shape=box]
+	C [label="User Data Preparation
+- Normalize columns
+- Calculate age, BMI, BMR, TDEE
+- Get latest mood" shape=box]
+	D [label="Health Constraints Filtering
+- Check user diseases
+- Filter avoid_nutrients & avoid_ingredients
+- Result = allowed_foods" shape=box]
+	E [label="Content-Based Recommendation
+- Filter diet_type & dislikes
+- Filter health constraints
+- Create user vector
+- Compute cosine similarity" shape=box]
+	F [label="Collaborative Recommendation (SVD)
+- Build trainset from user_ratings
+- Train SVD
+- Predict scores
+- Filter allowed foods" shape=box]
+	G [label="Hybrid Recommendation
+- Merge content & collaborative
+- Compute hybrid_score
+- Sort top N" shape=box]
+	H [label="Output
+- User info
+- Top N recommended foods" shape=box]
+	I [label=End shape=oval]
+	A -> B
+	B -> C
+	C -> D
+	D -> E [label="Content-based"]
+	D -> F [label=Collaborative]
+	E -> G
+	F -> G
+	G -> H
+	H -> I
+}
